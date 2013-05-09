@@ -8,11 +8,12 @@ namespace TravelRepublic.Flights
     public class Flight
     {
         public Guid Id { get; set; }
-        public IList<Segment> Segments { get; set; }
+        public TimeAndPlace Departure { get; set; }
+        public TimeAndPlace Arrival { get; set; }
 
         public override string ToString()
         {
-            return String.Join(", ", Segments.Select(s => s.ToString()));
+            return Departure + " -> " + Arrival;
         }
     }
 }

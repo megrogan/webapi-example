@@ -7,7 +7,6 @@ using System.Web.Http.Routing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using TravelRepublic.Flights.Repository;
-using TravelRepublic.Flights.Testing;
 using System.Net;
 using System.Net.Http;
 using TravelRepublic.Flights.Validation;
@@ -24,7 +23,7 @@ namespace TravelRepublic.Flights.Service.Test
         public void Get_ExistingFlight_ReturnsFlight()
         {
             // Arrange
-            var flight = FlightBuilder.CreateFlight();
+            var flight = new Flight {Id = Guid.NewGuid()};
             var repo = new Mock<IFlightRepository>();
             var validator = new Mock<IFlightValidator>();
             repo.Setup(r => r.Get(flight.Id)).Returns(flight);
@@ -66,7 +65,7 @@ namespace TravelRepublic.Flights.Service.Test
         public void Post_ValidFlight_ReturnsCreatedStatusCode()
         {
             // Arrange
-            var flight = FlightBuilder.CreateFlight();
+            var flight = new Flight { Id = Guid.NewGuid() };
             var repo = new Mock<IFlightRepository>();
             repo.Setup(r => r.Add(It.IsAny<Flight>())).Returns(true);
             var validator = new Mock<IFlightValidator>();
@@ -108,7 +107,7 @@ namespace TravelRepublic.Flights.Service.Test
             SetupControllerForTests(controller);
 
             // Act
-            var flight = FlightBuilder.CreateFlight();
+            var flight = new Flight { Id = Guid.NewGuid() };
             var result = controller.Post(flight);
 
             //Assert
@@ -128,7 +127,7 @@ namespace TravelRepublic.Flights.Service.Test
             SetupControllerForTests(controller);
 
             // Act
-            var flight = FlightBuilder.CreateFlight();
+            var flight = new Flight { Id = Guid.NewGuid() };
             var result = controller.Post(flight);
 
             // Assert

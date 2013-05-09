@@ -108,10 +108,6 @@
       <Project>{0432B50F-4D88-47C4-8038-20678F912E44}</Project>
       <Name>TravelRepublic.Flights.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TravelRepublic.Flights.Testing\TravelRepublic.Flights.Testing.csproj">
-      <Project>{30AF4D48-785A-481C-9DCA-FB7AAD64667B}</Project>
-      <Name>TravelRepublic.Flights.Testing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TravelRepublic.Flights.Validation\TravelRepublic.Flights.Validation.csproj">
       <Project>{80524520-750B-4042-881D-83A8B99C3010}</Project>
       <Name>TravelRepublic.Flights.Validation</Name>

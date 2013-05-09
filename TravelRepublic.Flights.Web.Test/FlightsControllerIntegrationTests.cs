@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Http;
-using TravelRepublic.Flights.Testing;
 using System.Collections.Generic;
 
 namespace TravelRepublic.Flights.Web.Test
@@ -42,7 +41,7 @@ namespace TravelRepublic.Flights.Web.Test
         public void Post_ValidFlight_ReturnsCreatedStatusCode()
         {
             // Arrange
-            var flight = FlightBuilder.CreateFlight();
+            var flight = new Flight { Id = Guid.NewGuid() };
 
             // Act
             var response = client.PostAsJsonAsync("api/flights", flight).Result;
@@ -56,7 +55,7 @@ namespace TravelRepublic.Flights.Web.Test
         public void Get_PostedFlight_ReturnsSameFlight()
         {
             // Arrange
-            var flight = FlightBuilder.CreateFlight();
+            var flight = new Flight { Id = Guid.NewGuid() };
             client.PostAsJsonAsync("api/flights", flight).Wait();
 
             // Act
@@ -73,7 +72,7 @@ namespace TravelRepublic.Flights.Web.Test
         public void GetAll_PostedFlight_ReturnsFlightList()
         {
             // Arrange
-            var flight = FlightBuilder.CreateFlight();
+            var flight = new Flight { Id = Guid.NewGuid() };
             client.PostAsJsonAsync("api/flights", flight).Wait();
 
             // Act
