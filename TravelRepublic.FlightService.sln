@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DC118286-59B7-4EC2-8183-ACC6E8CA17AA}"
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
+		README.md = README.md
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 		TravelRepublic.FlightService.vsmdi = TravelRepublic.FlightService.vsmdi
 	EndProjectSection

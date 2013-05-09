@@ -81,7 +81,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="flights.html" />
     <Content Include="Global.asax" />
+    <Content Include="js\backbone-min.js" />
+    <Content Include="js\flights.js" />
+    <Content Include="js\jquery-1.9.1.min.js" />
+    <Content Include="js\json2.js" />
+    <Content Include="js\underscore-min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -91,6 +97,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\flights.css" />
     <Compile Include="WebApiSetup.cs" />
     <Compile Include="WindsorInstaller.cs" />
     <Compile Include="Global.asax.cs">
@@ -119,6 +126,7 @@
       <Name>TravelRepublic.WebApi</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
