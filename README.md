@@ -30,17 +30,13 @@ There are two of ways of supporting IoC and Dependency Injection (DI) for Web Ap
 the HttpConfiguration object however this suffers, as do all Service Locators, by not providing any context to the GetService call which might
 be needed to successfully compose the dependency graph. The second way is to replace the default IHttpControllerActivator service. This provides 
 an HttpRequestMessage every time a graph should be composed and is therefore a suitable
-[composition root](http://blog.ploeh.dk/2011/07/28/CompositionRoot/). 
+[composition root](http://blog.ploeh.dk/2011/07/28/CompositionRoot/). Read [this article](http://blog.ploeh.dk/2012/09/28/DependencyInjectionandLifetimeManagementwithASP.NETWebAPI/) for a full discussion.
 
-Read [this article](http://blog.ploeh.dk/2012/09/28/DependencyInjectionandLifetimeManagementwithASP.NETWebAPI/) for a full discussion.
+The example in this repo uses [CastleWindsor](http://docs.castleproject.org/Default.aspx?Page=MainPage&NS=Windsor&AspxAutoDetectCookieSupport=1) 
+and the second method of replacing the default IHttpControllerActivator. [This article](http://blog.ploeh.dk/2012/10/03/DependencyInjectioninASP.NETWebAPIwithCastleWindsor/) was used as a guide.        
 
-In the example app I have used 
-[CastleWindsor](http://docs.castleproject.org/Default.aspx?Page=MainPage&NS=Windsor&AspxAutoDetectCookieSupport=1) 
-with the second method using 
-[this article](http://blog.ploeh.dk/2012/10/03/DependencyInjectioninASP.NETWebAPIwithCastleWindsor/) as a guide.        
-
-See the composition root code in [TravelRepublic.Flights.Web.WebApiSetup.cs](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Web/WebApiSetup.cs)
-and see DI in the controller here - [TravelRepublic.Flights.Service.FlightsController.cs](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Service/FlightsController.cs).
+See the composition root code in [WebApiSetup.cs](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Web/WebApiSetup.cs)
+and Dependency Injection here - [FlightsController.cs](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Service/FlightsController.cs).
 
 <a name="Testing"></a> 
 
@@ -50,7 +46,7 @@ and see DI in the controller here - [TravelRepublic.Flights.Service.FlightsContr
 
 Once you use IoC then unit testing becomes relatively straight-forward. It is however a bit tricky to test controller action methods 
 that return HttpResponseMessage requiring extra config. Read [this article](http://www.peterprovost.org/blog/2012/06/16/unit-testing-asp-dot-net-web-api) 
-for a discussion. See the example unit tests in [TravelRepublic.Flights.Service.Test](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Service.Test/FlightsControllerTests.cs)
+for a discussion. See the example unit tests in [FlightsControllerTests.cs](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Service.Test/FlightsControllerTests.cs)
 which also test the POST action which returns an HttpResponseMessage.
 
 ### Integration testing
@@ -58,7 +54,7 @@ which also test the POST action which returns an HttpResponseMessage.
 Integration testing of Web Api controllers is also straight-forward. They can either be tested against an in-memory HttpServer or against a fully running HttpServer using 
 HttpSelfHostServer and both methods have their place - see [here](http://stackoverflow.com/questions/14698130/unit-testing-web-api-using-httpserver-or-httpselfhostserver) for a quick discussion.
 The former method is relatively fast and does not involve exercising the full network stack, and as such could easily be run on a build server as part of CI.
-It can also serve to test the application routing and IoC setup which is what I have done in the example [here](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Web.Test/FlightsControllerIntegrationTests.cs).
+It can also serve to test the application routing and IoC setup which is illustrated in [FlightsControllerIntegrationTests.cs](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Web.Test/FlightsControllerIntegrationTests.cs).
 This example also demonstrates how a Web Api service can be called by c# client code rather than by js in a browser.
 
 ### Testing with Service Stack
@@ -157,7 +153,7 @@ Or you can put authentication logic into an HTTP message handler. In that case, 
 [Here](http://www.asp.net/web-api/overview/security/authentication-and-authorization-in-aspnet-web-api) is the Microsoft introductory article.
 
 Authorization is supported with Authorization filters and the [Authorize] attribute which can be used to restrict access globally, at the controller level, 
-or at the level of inidivual actions.
+or at the level of individual actions.
 
 [Here](http://vimeo.com/43603474) is a great video about securing Web Apis - the associated code is [here.](http://goo.gl/00Oc2)
 
@@ -171,8 +167,8 @@ Unitl recently you could either roll your own CORS support or use a 3rd party li
 Now, if you have .NET 4.5+, you can get the soon to be built-in CORS support - see 
 [here](http://aspnetwebstack.codeplex.com/wikipage?title=CORS%20support%20for%20ASP.NET%20Web%20API "CORS%20support%20for%20ASP.NET%20Web%20API").
 In the latest build the EnableCorsAttribute call requires parameters 
-- see [here](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Web/WebApiSetup.cs)
-for my commented out example which would enable full global CORS access for all controllers in the app.           
+- see [WebApiSetup.cs](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Web/WebApiSetup.cs)
+for a commented out example which would enable full global CORS access for all controllers in the app.           
 
 <a name="JSONP"></a> 
 
@@ -181,7 +177,8 @@ for my commented out example which would enable full global CORS access for all 
 At the time of writing the Web Api does not have built-in support for jsonp but you can use 3rd party code which extends a JsonMediaTypeFormatter - 
 see [here](http://stackoverflow.com/questions/9421312/jsonp-with-asp-net-web-api) for a stackoverflow question on the topic.
 
-In the [example app](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Web/WebApiSetup.cs) I use 
+In [WebApiSetup.cs](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Web/WebApiSetup.cs) you can
+see that a jsonp formatter is added using 
 [Rick Strahl's implementation](http://www.west-wind.com/weblog/posts/2012/Apr/02/Creating-a-JSONP-Formatter-for-ASPNET-Web-API).
 
 <a name="OData"></a> 
@@ -201,8 +198,7 @@ To build a modestly complex REST API it soon becomes apparent that PATCH semanti
 Without PATCH it is necessary for a client to do a GET followed by a PUT which can be undesirable. 
 At the time of writing Patch has been supported with a supplementary package for the Web Api. You can read about it in
 [this](http://blogs.msdn.com/b/alexj/archive/2012/08/15/odata-support-in-asp-net-web-api.aspx) MSDN blog post. 
-I have included a PATCH command in the [example](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Service/FlightsController.cs) 
-flights controller.
+A PATCH command is included in [FlightsController.cs](https://github.com/megrogan/webapi-example/blob/master/TravelRepublic.Flights.Service/FlightsController.cs).
 
 <a name="Linux"></a> 
 
